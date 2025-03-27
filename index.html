@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Form Login</h2>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span class="error" id="usernameError"></span>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <span class="error" id="passwordError"></span>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let usernameError = "";
+            let passwordError = "";
+            
+            // Validasi Username (maksimal 7 karakter)
+            if (username.length > 7) {
+                usernameError = "Username tidak boleh lebih dari 7 karakter.";
+            }
+            
+            // Validasi Password (Minimal 10 karakter, huruf besar, kecil, angka, dan karakter khusus)
+            let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/;
+            if (!passwordRegex.test(password)) {
+                passwordError = "Password harus minimal 10 karakter, mengandung huruf kapital, huruf kecil, angka, dan karakter khusus.";
+            }
+            
+            // Menampilkan pesan error
+            document.getElementById("usernameError").innerText = usernameError;
+            document.getElementById("passwordError").innerText = passwordError;
+            
+            // Jika valid, tampilkan alert
+            if (!usernameError && !passwordError) {
+                alert("Form berhasil dikirim!");
+            }
+        });
+    </script>
+</body>
+</html>
